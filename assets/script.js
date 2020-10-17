@@ -91,10 +91,7 @@ $(document).ready(function () {
 
 // psuedocode: the process
 
-// 1. Add date and time to top of calendar -
-// 2. Grey out the hours that have passed -
-// 3. Show future hours in a different colour -
-// 4. Highlight current hour to indicate present - BEN TO HELP FORMAT
+
 // 5. Make save button add any text into local storage that stays there when the page is refreshed
 // 6. On loading, make the page pull schedule notes from local storage
 // 7. Make clear schedule button empty all data
