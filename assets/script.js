@@ -7,25 +7,24 @@ console.log("Today's date is", currentDate);
 const currentHour = moment().format("H");
 console.log("The hour is", currentHour);
 
-const scheduleItems = [];
-
 // Functions required
 
 
 // Changing the colours of the time blocks depending on past, present and future
 function establishTimeBlockColours() {
     $(".timeBlock").each(function () {
-        const $thisBlock = $(this);
-        const thisBlockHour = parseInt($thisBlock.attr("data-hour"));
+        const thisBlock = $(this);
+        const thisBlockHour = parseInt(thisBlock.attr("data-hour"));
+        const thisTextArea = thisBlock.find("textarea");
 
         if (thisBlockHour == currentHour) {
-            $thisBlock.addClass("present").removeClass("past future");
+            thisTextArea.addClass("present").removeClass("past future");
         }
         if (thisBlockHour < currentHour) {
-            $thisBlock.addClass("past").removeClass("present future");
+            thisTextArea.addClass("past").removeClass("present future");
         }
         if (thisBlockHour > currentHour) {
-            $thisBlock.addClass("future").removeClass("past present");
+            thisTextArea.addClass("future").removeClass("past present");
         }
     });
 }
@@ -34,29 +33,29 @@ function establishTimeBlockColours() {
 // Set up the array of objects first time on load if we don't have anything saved in local storage
 function initialSchedule() {
     $(".timeBlock").each(function () {
-        const $thisBlock = $(this);
-        const thisBlockHour = parseInt($thisBlock.attr("data-hour"));
+        const thisBlock = $(this);
+        const taskKey = parseInt(thisBlock.attr("data-hour"));
 
-        const scheduleObj = {
-            hour: thisBlockHour,
-            task: "",
-        }
-        // Add this schedule item into the array
-        scheduleItems.push(scheduleObj);
+        const storedValue = localStorage.getItem(taskKey)
+        console.log(storedValue);
+
     });
 
-    // Save the object info to local storage by stringifying it first
-    localStorage.setItem("Scheduled task", JSON.stringify(scheduleItems));
-    console.log(scheduleItems);
 };
 
 
-// Create save button here to add input data into local storage
+// Create save button here to add data into local storage
 
 $(".btn-secondary").click(function saveTasks() {
-    console.log("Save button pressed")
-    // $.each(scheduleObj, function(thisBlockHour, task) {
+    console.log("Save button pressed");
+    const btnClicked = $(this);
+    const rowClicked = btnClicked.parent();
+    
+    const scheduledTask = rowClicked.find("textarea").val();
+    const taskKey = rowClicked.attr("data-hour");
 
+    localStorage.setItem(taskKey, scheduledTask);
+    
 });
 
 
