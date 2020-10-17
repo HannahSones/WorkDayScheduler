@@ -13,12 +13,12 @@ const scheduleItems = [];
 
 
 // Changing the colours of the time blocks depending on past, present and future
-function establishTimeBlocks() {
+function establishTimeBlockColours() {
     $(".timeBlock").each(function () {
         const $thisBlock = $(this);
         const thisBlockHour = parseInt($thisBlock.attr("data-hour"));
 
-        if (thisBlockHour === currentHour) {
+        if (thisBlockHour == currentHour) {
             $thisBlock.addClass("present").removeClass("past future");
         }
         if (thisBlockHour < currentHour) {
@@ -30,55 +30,72 @@ function establishTimeBlocks() {
     });
 }
 
-// Set up the array of objects based on the text entered into the text area
+
+// Set up the array of objects first time on load if we don't have anything saved in local storage
+function initialSchedule() {
     $(".timeBlock").each(function () {
         const $thisBlock = $(this);
         const thisBlockHour = parseInt($thisBlock.attr("data-hour"));
 
         const scheduleObj = {
             hour: thisBlockHour,
-            text: "",
+            task: "",
         }
         // Add this schedule item into the array
         scheduleItems.push(scheduleObj);
     });
 
-    // Save this array of objects to local storage by stringifying it first
-    localStorage.setItem("todos", JSON.stringify(scheduleItems));
+    // Save the object info to local storage by stringifying it first
+    localStorage.setItem("Scheduled task", JSON.stringify(scheduleItems));
     console.log(scheduleItems);
+};
 
 
-    // Clears all text area inputs
-    $("#clearSchedule").on("click", function () {
-        $(":text").empty();
-        console.log("Clear data button pressed")
-    });
+// Create save button here to add input data into local storage
+
+$(".btn-secondary").click(function saveTasks() {
+    console.log("Save button pressed")
+    // $.each(scheduleObj, function(thisBlockHour, task) {
+
+});
+
+
+// Clears all text area inputs
+$("#clearSchedule").on("click", function () {
+    $(":text").empty();
+    console.log("Clear data button pressed")
+    window.location.reload
+});
 
 
 
-    // Document ready when the page loads
-    $(document).ready(function (){
+// Document ready when the page loads
+$(document).ready(function () {
 
 
-        // Setting the current date at the top of the planner
-        $("#currentDay").text(currentDate);
-        $("#currentTime").text(currentTime);
+    // Setting the current date at the top of the planner
+    $("#currentDay").text(currentDate);
+    $("#currentTime").text(currentTime);
 
-        // Set the colours based on the time
-        establishTimeBlocks();
+    // Set the colours based on the time
+    establishTimeBlockColours();
+    initialSchedule();
 
-        // recall information from local storage if there is any
+    // recall information from local storage if there is any
 
-    });
+});
+
+
+
+
 
 
 // psuedocode: the process
 
-// 1. Grey out the hours that have passed -
-// 2. Show future hours in a different colour -
-// 3. Highlight current hour to indicate present -
-// 4. Make save function save notes in local storage that stays there when the page is refreshed
-// 5. Make previous button link to previous date
-// 6. Make next button link to next date
-// 7. Make today go back to todays date
-// 8. Make clear schedule button empty all data
+// 1. Add date and time to top of calendar -
+// 2. Grey out the hours that have passed -
+// 3. Show future hours in a different colour -
+// 4. Highlight current hour to indicate present - BEN TO HELP FORMAT
+// 5. Make save button add any text into local storage that stays there when the page is refreshed
+// 6. On loading, make the page pull schedule notes from local storage
+// 7. Make clear schedule button empty all data
