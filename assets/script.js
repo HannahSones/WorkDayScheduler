@@ -35,9 +35,16 @@ function initialSchedule() {
     $(".timeBlock").each(function () {
         const thisBlock = $(this);
         const taskKey = parseInt(thisBlock.attr("data-hour"));
+        const thisTextArea = thisBlock.find("textarea");
 
         const storedValue = localStorage.getItem(taskKey)
-        console.log(storedValue);
+        console.log("Stored tasks", storedValue);
+
+        if (storedValue === null) {
+            return "";
+        } else {
+            thisTextArea.html = storedValue;
+        }
 
     });
 
@@ -61,7 +68,7 @@ $(".btn-secondary").click(function saveTasks() {
 
 // Clears all text area inputs
 $("#clearSchedule").on("click", function () {
-    $(":text").empty();
+    $("textarea").empty();
     console.log("Clear data button pressed")
     window.location.reload
 });
@@ -76,11 +83,9 @@ $(document).ready(function () {
     $("#currentDay").text(currentDate);
     $("#currentTime").text(currentTime);
 
-    // Set the colours based on the time
+    // Set the colours based on the time and recall saved tasks from local storage if there is any
     establishTimeBlockColours();
     initialSchedule();
-
-    // recall information from local storage if there is any
 
 });
 
