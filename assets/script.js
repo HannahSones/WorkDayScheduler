@@ -7,8 +7,8 @@ console.log("Today's date is", currentDate);
 const currentHour = moment().format("H");
 console.log("The hour is", currentHour);
 
-// Functions required
 
+// Functions required
 
 // Changing the colours of the time blocks depending on past, present and future
 function establishTimeBlockColours() {
@@ -30,7 +30,7 @@ function establishTimeBlockColours() {
 }
 
 
-// Set up the array of objects first time on load if we don't have anything saved in local storage
+// Assigning values to the text areas based on data saved in local storage
 function initialSchedule() {
     $(".timeBlock").each(function () {
         const thisBlock = $(this);
@@ -49,31 +49,32 @@ function initialSchedule() {
 };
 
 
-// Create save button here to add data into local storage
+// Save button to add data into local storage
 
 $(".btn-secondary").click(function saveTasks() {
     console.log("Save button pressed");
     const btnClicked = $(this);
     const rowClicked = btnClicked.parent();
-    
+
     const scheduledTask = rowClicked.find("textarea").val();
     const taskKey = rowClicked.attr("data-hour");
 
     localStorage.setItem(taskKey, scheduledTask);
-    
+
 });
 
 
-// Clears all text area inputs
+// Clear button to delete all information off the page and out of local storage
+
 $("#clearSchedule").on("click", function () {
-    $("textarea").empty();
     console.log("Clear data button pressed")
-    window.location.reload
+    window.localStorage.clear();
+    window.location.reload();
 });
-
 
 
 // Document ready when the page loads
+
 $(document).ready(function () {
 
 

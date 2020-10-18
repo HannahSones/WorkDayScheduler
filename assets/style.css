@@ -62,10 +62,16 @@ textarea {
   color: black;
 }
 
+
 /* Button styling */
 
 .btn {
   border-color: white;
   border-width: 4px;
   border-radius: 10px;
+}
+
+.btn-danger {
+  margin: auto;
+
 }
