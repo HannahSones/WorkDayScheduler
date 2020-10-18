@@ -40,10 +40,8 @@ function initialSchedule() {
         const storedValue = localStorage.getItem(taskKey)
         console.log("Stored tasks", storedValue);
 
-        if (storedValue === null) {
-            return "";
-        } else {
-            thisTextArea.html = storedValue;
+        if (storedValue) {
+            thisTextArea.val(storedValue);
         }
 
     });
@@ -88,15 +86,3 @@ $(document).ready(function () {
     initialSchedule();
 
 });
-
-
-
-
-
-
-// psuedocode: the process
-
-
-// 5. Make save button add any text into local storage that stays there when the page is refreshed
-// 6. On loading, make the page pull schedule notes from local storage
-// 7. Make clear schedule button empty all data
